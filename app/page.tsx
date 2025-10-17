@@ -113,6 +113,33 @@ export default function Home() {
               JOIN WAITLIST
             </button>
           </form>
+
+          <div style={{ marginTop: "2rem" }}>
+            <a
+              href="/game"
+              style={{
+                color: "#f7d954",
+                textDecoration: "none",
+                fontSize: "1.1rem",
+                fontWeight: "600",
+                padding: "0.5rem 1rem",
+                border: "2px solid #f7d954",
+                borderRadius: "8px",
+                display: "inline-block",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#f7d954";
+                e.currentTarget.style.color = "#000";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#f7d954";
+              }}
+            >
+              🎮 Play Endless Runner Game
+            </a>
+          </div>
         </div>
       </div>
     </div>
