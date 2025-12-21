@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Mockup - Farcaster Mini App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding-bottom: 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .user-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #171717;
+        }
+
+        .user-fid {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .close-button {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.25rem;
+            color: #666;
+        }
+
+        .close-button:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Tabs */
+        .tabs {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0 1rem;
+            display: flex;
+            gap: 0.5rem;
+            position: sticky;
+            top: 81px;
+            z-index: 99;
+        }
+
+        .tab {
+            background: transparent;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        /* Main */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+        }
+
+        .stat-title {
+            font-size: 0.875rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #171717;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .stat-change.up {
+            color: #10b981;
+        }
+
+        .stat-change.down {
+            color: #ef4444;
+        }
+
+        .stat-change.neutral {
+            color: #6b7280;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-button {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: #171717;
+        }
+
+        .action-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .action-icon {
+            font-size: 2rem;
+        }
+
+        /* Progress */
+        .progress-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .progress-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-label {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: #171717;
+        }
+
+        .progress-value {
+            font-size: 0.875rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Activity Feed */
+        .activity-feed {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            background: rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .activity-item:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateX(4px);
+        }
+
+        .activity-item.transaction {
+            border-left-color: #10b981;
+        }
+
+        .activity-item.achievement {
+            border-left-color: #f59e0b;
+        }
+
+        .activity-item.social {
+            border-left-color: #667eea;
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .activity-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .activity-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #171717;
+        }
+
+        .activity-description {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        /* Wallet */
+        .wallet-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .wallet-balance {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .balance-label {
+            font-size: 0.875rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .balance-value {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .balance-change {
+            font-size: 1rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .assets-list {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .asset-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .asset-item:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateX(4px);
+        }
+
+        .asset-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .asset-icon {
+            font-size: 2rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .asset-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #171717;
+            margin-bottom: 0.25rem;
+        }
+
+        .asset-amount {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .asset-value {
+            text-align: right;
+        }
+
+        .asset-usd {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #171717;
+            margin-bottom: 0.25rem;
+        }
+
+        .asset-change {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .asset-change.up {
+            color: #10b981;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .balance-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="user-info">
+                    <div class="avatar">👤</div>
+                    <div class="user-details">
+                        <div class="user-name">Welcome User</div>
+                        <div class="user-fid">FID: 12345</div>
+                    </div>
+                </div>
+                <button class="close-button">✕</button>
+            </div>
+        </header>
+
+        <!-- Tabs -->
+        <nav class="tabs">
+            <button class="tab active" onclick="showTab('overview')">Overview</button>
+            <button class="tab" onclick="showTab('activity')">Activity</button>
+            <button class="tab" onclick="showTab('wallet')">Wallet</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Overview Tab -->
+            <div id="overview-tab">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">💰</span>
+                            <h3 class="stat-title">Total Balance</h3>
+                        </div>
+                        <div class="stat-value">$12,345.67</div>
+                        <div class="stat-change up">↗ +12.5%</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📈</span>
+                            <h3 class="stat-title">Transactions</h3>
+                        </div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-change up">↗ +8</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🖼️</span>
+                            <h3 class="stat-title">Active Frames</h3>
+                        </div>
+                        <div class="stat-value">23</div>
+                        <div class="stat-change neutral">→ 0</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                            <h3 class="stat-title">Followers</h3>
+                        </div>
+                        <div class="stat-value">1,234</div>
+                        <div class="stat-change up">↗ +42</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <section class="section">
+                    <h2 class="section-title">Quick Actions</h2>
+                    <div class="quick-actions">
+                        <button class="action-button">
+                            <span class="action-icon">📤</span>
+                            <span>Send</span>
+                        </button>
+                        <button class="action-button">
+                            <span class="action-icon">📥</span>
+                            <span>Receive</span>
+                        </button>
+                        <button class="action-button">
+                            <span class="action-icon">🔄</span>
+                            <span>Swap</span>
+                        </button>
+                        <button class="action-button">
+                            <span class="action-icon">🌉</span>
+                            <span>Bridge</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Progress -->
+                <section class="section">
+                    <h2 class="section-title">Your Progress</h2>
+                    <div class="progress-section">
+                        <div class="progress-chart">
+                            <div class="progress-header">
+                                <span class="progress-label">Daily Goals</span>
+                                <span class="progress-value">7 / 10</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-chart">
+                            <div class="progress-header">
+                                <span class="progress-label">Weekly Transactions</span>
+                                <span class="progress-value">23 / 50</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 46%"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-chart">
+                            <div class="progress-header">
+                                <span class="progress-label">Profile Completion</span>
+                                <span class="progress-value">85 / 100</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Activity Tab -->
+            <div id="activity-tab" class="hidden">
+                <section class="section">
+                    <h2 class="section-title">Recent Activity</h2>
+                    <div class="activity-feed">
+                        <div class="activity-item transaction">
+                            <div class="activity-icon">💸</div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">Received 0.5 ETH</h4>
+                                <p class="activity-description">From 0x1234...5678</p>
+                                <span class="activity-time">15m ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item achievement">
+                            <div class="activity-icon">🏆</div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">Achievement Unlocked!</h4>
+                                <p class="activity-description">Completed 100 transactions</p>
+                                <span class="activity-time">2h ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item social">
+                            <div class="activity-icon">👤</div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">New Follower</h4>
+                                <p class="activity-description">@cryptofan followed you</p>
+                                <span class="activity-time">5h ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item transaction">
+                            <div class="activity-icon">💵</div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">Sent 100 USDC</h4>
+                                <p class="activity-description">To 0xabcd...ef01</p>
+                                <span class="activity-time">1d ago</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon">⚙️</div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">Profile Updated</h4>
+                                <p class="activity-description">You updated your profile picture</p>
+                                <span class="activity-time">2d ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Wallet Tab -->
+            <div id="wallet-tab" class="hidden">
+                <section class="section">
+                    <h2 class="section-title">Wallet Overview</h2>
+                    <div class="wallet-card">
+                        <div class="wallet-balance">
+                            <span class="balance-label">Total Balance</span>
+                            <span class="balance-value">$12,345.67</span>
+                            <span class="balance-change">+$1,234.56 (11.1%)</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Assets</h2>
+                    <div class="assets-list">
+                        <div class="asset-item">
+                            <div class="asset-info">
+                                <span class="asset-icon">Ξ</span>
+                                <div>
+                                    <div class="asset-name">Ethereum</div>
+                                    <div class="asset-amount">2.5 ETH</div>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <div class="asset-usd">$6,250.00</div>
+                                <div class="asset-change up">+5.2%</div>
+                            </div>
+                        </div>
+
+                        <div class="asset-item">
+                            <div class="asset-info">
+                                <span class="asset-icon">💵</span>
+                                <div>
+                                    <div class="asset-name">USDC</div>
+                                    <div class="asset-amount">5,000 USDC</div>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <div class="asset-usd">$5,000.00</div>
+                                <div class="asset-change neutral">0.0%</div>
+                            </div>
+                        </div>
+
+                        <div class="asset-item">
+                            <div class="asset-info">
+                                <span class="asset-icon">🔵</span>
+                                <div>
+                                    <div class="asset-name">BASE</div>
+                                    <div class="asset-amount">1,000 BASE</div>
+                                </div>
+                            </div>
+                            <div class="asset-value">
+                                <div class="asset-usd">$1,095.67</div>
+                                <div class="asset-change up">+15.8%</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.getElementById('overview-tab').classList.add('hidden');
+            document.getElementById('activity-tab').classList.add('hidden');
+            document.getElementById('wallet-tab').classList.add('hidden');
+
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
