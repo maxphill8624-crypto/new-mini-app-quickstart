@@ -113,6 +113,16 @@ export default function Home() {
               JOIN WAITLIST
             </button>
           </form>
+
+          <div className={styles.demoLink}>
+            <p className={styles.demoText}>Want to see what's possible?</p>
+            <button
+              onClick={() => router.push('/dashboard')}
+              className={styles.demoButton}
+            >
+              VIEW DEMO DASHBOARD
+            </button>
+          </div>
         </div>
       </div>
     </div>

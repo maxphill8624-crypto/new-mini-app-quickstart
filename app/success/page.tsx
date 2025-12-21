@@ -50,9 +50,17 @@ export default function Success() {
             Get ready to experience the future of onchain marketing.
           </p>
 
-          <button onClick={handleShare} className={styles.shareButton}>
-            SHARE
-          </button>
+          <div className={styles.buttonGroup}>
+            <button onClick={handleShare} className={styles.shareButton}>
+              SHARE
+            </button>
+            <button
+              onClick={() => window.location.href = '/dashboard'}
+              className={styles.dashboardButton}
+            >
+              VIEW DASHBOARD
+            </button>
+          </div>
         </div>
       </div>
     </div>
