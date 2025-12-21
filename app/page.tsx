@@ -88,7 +88,15 @@ export default function Home() {
       <button className={styles.closeButton} type="button">
         ✕
       </button>
-      
+
+      <button
+        className={styles.dashboardLink}
+        onClick={() => router.push("/dashboard")}
+        type="button"
+      >
+        📊 Dashboard
+      </button>
+
       <div className={styles.content}>
         <div className={styles.waitlistForm}>
           <h1 className={styles.title}>Join {minikitConfig.miniapp.name.toUpperCase()}</h1>
