@@ -1,0 +1,285 @@
+.container {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.searchSection {
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.searchBox {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.locationInput {
+  flex: 1;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.searchButton {
+  padding: 15px 30px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.searchButton:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.searchButton:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error {
+  color: #ff6b6b;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.results {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.resultCount {
+  color: white;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.businessList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.businessCard {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.businessCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.businessHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.businessName {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+}
+
+.rating {
+  color: #f59e0b;
+  font-size: 0.95rem;
+}
+
+.address {
+  color: #666;
+  margin: 10px 0;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.statusActive {
+  background: #d4edda;
+  color: #155724;
+}
+
+.statusInactive {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.fundingButton {
+  width: 100%;
+  padding: 12px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.fundingButton:hover {
+  background: #5568d3;
+}
+
+.fundingButton:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.fundingSection {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.fundingSummary {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.fundingSummary h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.totalFunding {
+  font-size: 1.3rem;
+  color: #4CAF50;
+  margin: 10px 0;
+}
+
+.fundingCount {
+  color: #666;
+  margin: 5px 0;
+}
+
+.fundingRecords h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.fundingRecord {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #667eea;
+}
+
+.recordHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.recordSource {
+  background: #667eea;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.recordAmount {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.recordRecipient,
+.recordAgency,
+.recordType,
+.recordDate,
+.recordDescription {
+  margin: 8px 0;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.recordDescription {
+  padding-top: 8px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 10px;
+}
+
+.noFunding {
+  background: #fff3cd;
+  padding: 15px;
+  border-radius: 8px;
+  color: #856404;
+  border-left: 4px solid #ffc107;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .searchBox {
+    flex-direction: column;
+  }
+
+  .businessName {
+    font-size: 1.2rem;
+  }
+
+  .recordHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useQuickAuth,useMiniKit } from "@coinbase/onchainkit/minikit";
+import { useQuickAuth, useMiniKit } from "@coinbase/onchainkit/minikit";
 import { useRouter } from "next/navigation";
 import { minikitConfig } from "../minikit.config";
 import styles from "./page.module.css";
+import Link from "next/link";
 
 interface AuthResponse {
   success: boolean;
@@ -113,6 +114,14 @@ export default function Home() {
               JOIN WAITLIST
             </button>
           </form>
+
+          <div style={{ marginTop: "30px", textAlign: "center" }}>
+            <Link href="/healthcare-funding">
+              <button className={styles.healthcareButton}>
+                Healthcare Funding Lookup
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
