@@ -77,9 +77,8 @@ export default function Home() {
     }
 
     // TODO: Save email to database/API with user FID
-    console.log("Valid email submitted:", email);
-    console.log("User authenticated:", authData.user);
-    
+    // Email and user authentication successful
+
     // Navigate to success page
     router.push("/success");
   };

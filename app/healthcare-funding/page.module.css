@@ -10,6 +10,25 @@
   color: white;
 }
 
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-3px);
+}
+
 .title {
   font-size: 2.5rem;
   font-weight: bold;
@@ -263,6 +282,40 @@
   color: #856404;
   border-left: 4px solid #ffc107;
   margin-top: 15px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: white;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.emptyState p {
+  opacity: 0.8;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {

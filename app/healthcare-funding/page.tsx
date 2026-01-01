@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import axios from "axios";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 interface Business {
@@ -38,7 +39,6 @@ export default function HealthcareFundingPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [location, setLocation] = useState("Aurora, CO");
-  const [selectedBusiness, setSelectedBusiness] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isFrameReady) {
@@ -47,20 +47,40 @@ export default function HealthcareFundingPage() {
   }, [setFrameReady, isFrameReady]);
 
   const searchBusinesses = async () => {
+    // Add confirmation if there are existing results with funding data
+    const hasLoadedFunding = businesses.some(b => b.funding);
+
+    if (hasLoadedFunding && businesses.length > 0) {
+      const confirmed = window.confirm(
+        "Starting a new search will clear current results. Continue?"
+      );
+      if (!confirmed) return;
+    }
+
     setIsLoading(true);
     setError("");
     setBusinesses([]);
 
     try {
-      const response = await axios.get(`/api/healthcare?location=${encodeURIComponent(location)}`);
+      const response = await axios.get(
+        `/api/healthcare?location=${encodeURIComponent(location)}`,
+        { timeout: 15000 }
+      );
 
       if (response.data.success) {
         setBusinesses(response.data.businesses);
+        if (response.data.message) {
+          setError(response.data.message);
+        }
       } else {
-        setError("Failed to fetch healthcare businesses");
+        setError(response.data.message || "Failed to fetch healthcare businesses");
       }
     } catch (err: any) {
-      setError(err.response?.data?.error || "An error occurred while fetching businesses");
+      if (err.code === 'ECONNABORTED') {
+        setError("Request timeout. Please try again.");
+      } else {
+        setError(err.response?.data?.error || "An error occurred while fetching businesses");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -72,10 +92,14 @@ export default function HealthcareFundingPage() {
     setBusinesses(updatedBusinesses);
 
     try {
-      const response = await axios.post("/api/funding", {
-        businessName: business.name,
-        address: business.address,
-      });
+      const response = await axios.post(
+        "/api/funding",
+        {
+          businessName: business.name,
+          address: business.address,
+        },
+        { timeout: 20000 }
+      );
 
       if (response.data.success) {
         updatedBusinesses[index].funding = {
@@ -85,7 +109,6 @@ export default function HealthcareFundingPage() {
         };
         updatedBusinesses[index].isLoadingFunding = false;
         setBusinesses(updatedBusinesses);
-        setSelectedBusiness(business.placeId);
       }
     } catch (err: any) {
       console.error("Error fetching funding:", err);
@@ -96,6 +119,12 @@ export default function HealthcareFundingPage() {
         funding: [],
       };
       setBusinesses(updatedBusinesses);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      searchBusinesses();
     }
   };
 
@@ -111,6 +140,9 @@ export default function HealthcareFundingPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
+        <Link href="/" className={styles.backButton}>
+          ← Back to Home
+        </Link>
         <h1 className={styles.title}>Healthcare Funding Lookup</h1>
         <p className={styles.subtitle}>
           Find home healthcare businesses and their government funding
@@ -123,6 +155,7 @@ export default function HealthcareFundingPage() {
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="Enter location (e.g., Aurora, CO)"
             className={styles.locationInput}
           />
@@ -138,6 +171,26 @@ export default function HealthcareFundingPage() {
       </div>
 
       <div className={styles.results}>
+        {!isLoading && businesses.length === 0 && !error && (
+          <div className={styles.emptyState}>
+            <div className={styles.emptyIcon}>🔍</div>
+            <h3>Ready to search</h3>
+            <p>Enter a location above and click "Search Businesses" to find home healthcare providers</p>
+          </div>
+        )}
+
+        {isLoading && (
+          <div className={styles.businessList}>
+            {[1, 2, 3].map(i => (
+              <div key={i} className={styles.businessCard}>
+                <div className={styles.skeleton} style={{ height: '24px', width: '70%' }} />
+                <div className={styles.skeleton} style={{ height: '16px', width: '90%', marginTop: '10px' }} />
+                <div className={styles.skeleton} style={{ height: '40px', width: '100%', marginTop: '15px' }} />
+              </div>
+            ))}
+          </div>
+        )}
+
         {businesses.length > 0 && (
           <p className={styles.resultCount}>
             Found {businesses.length} home healthcare businesses in {location}

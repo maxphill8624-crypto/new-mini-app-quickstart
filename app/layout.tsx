@@ -28,11 +28,19 @@ export async function generateMetadata(): Promise<Metadata> {
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: 'swap',
+  fallback: ['system-ui', 'arial'],
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const sourceCodePro = Source_Code_Pro({
   variable: "--font-source-code-pro",
   subsets: ["latin"],
+  display: 'swap',
+  fallback: ['Courier New', 'monospace'],
+  preload: false,
+  adjustFontFallback: true,
 });
 
 export default function RootLayout({
