@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useQuickAuth, useMiniKit } from "@coinbase/onchainkit/minikit";
 import { minikitConfig } from "../minikit.config";
 import styles from "./page.module.css";
 
@@ -24,19 +23,28 @@ interface ShoppingItem {
 }
 
 export default function Home() {
-  const { isFrameReady, setFrameReady, context } = useMiniKit();
   const [items, setItems] = useState<ShoppingItem[]>([]);
   const [newItem, setNewItem] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("groceries");
   const [error, setError] = useState("");
+  const [context, setContext] = useState<any>(null);
+  const [authData, setAuthData] = useState<AuthResponse | null>(null);
 
-  // Initialize the miniapp
+  // Initialize MiniKit if available
   useEffect(() => {
-    if (!isFrameReady) {
-      setFrameReady();
-    }
-  }, [setFrameReady, isFrameReady]);
+    const initMiniKit = async () => {
+      try {
+        const { useMiniKit, useQuickAuth } = await import("@coinbase/onchainkit/minikit");
+        // MiniKit is available - we're in Farcaster
+        console.log("MiniKit available");
+      } catch (err) {
+        // MiniKit not available - standalone mode
+        console.log("Running in standalone mode");
+      }
+    };
+    initMiniKit();
+  }, []);
 
   // Load shopping list from localStorage
   useEffect(() => {
@@ -52,11 +60,6 @@ export default function Home() {
       localStorage.setItem("claudeShoppingList", JSON.stringify(items));
     }
   }, [items]);
-
-  const { data: authData } = useQuickAuth<AuthResponse>(
-    "/api/auth",
-    { method: "GET" }
-  );
 
   const handleAddItem = (e: React.FormEvent) => {
     e.preventDefault();
