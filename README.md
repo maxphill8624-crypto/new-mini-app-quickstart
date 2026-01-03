@@ -1,6 +1,6 @@
-# Waitlist Mini App Quickstart
+# Claude's Shopping List Mini App
 
-This is a demo Mini App application built using OnchainKit and the Farcaster SDK. Build a waitlist sign-up mini app for your company that can be published to the Base app and Farcaster.
+This is a Mini App built using OnchainKit and the Farcaster SDK. A smart shopping list manager that helps you track items with categories, quantities, and purchase status. Built for the Base app and Farcaster.
 
 ## Prerequisites
 
@@ -41,6 +41,15 @@ NEXT_PUBLIC_URL=
 ```bash
 npm run dev
 ```
+
+## Features
+
+- Add items with name, quantity, and category
+- Mark items as purchased with checkboxes
+- Organize items by categories (groceries, electronics, clothing, home, other)
+- Persistent storage using localStorage
+- Clean, modern UI with dark theme
+- Farcaster authentication integration
 
 ## Customization
 
