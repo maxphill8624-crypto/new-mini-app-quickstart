@@ -91,7 +91,7 @@ export default function Home() {
       <div className={styles.content}>
         <div className={styles.shoppingList}>
           <h1 className={styles.title}>
-            CLAUDE'S SHOPPING LIST
+            CLAUDE&apos;S SHOPPING LIST
           </h1>
 
           <p className={styles.subtitle}>
