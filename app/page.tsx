@@ -1,17 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { minikitConfig } from "../minikit.config";
 import styles from "./page.module.css";
-
-interface AuthResponse {
-  success: boolean;
-  user?: {
-    fid: number;
-    issuedAt?: number;
-    expiresAt?: number;
-  };
-  message?: string;
-}
 
 interface ShoppingItem {
   id: string;
@@ -28,23 +17,6 @@ export default function Home() {
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("groceries");
   const [error, setError] = useState("");
-  const [context, setContext] = useState<any>(null);
-  const [authData, setAuthData] = useState<AuthResponse | null>(null);
-
-  // Initialize MiniKit if available
-  useEffect(() => {
-    const initMiniKit = async () => {
-      try {
-        const { useMiniKit, useQuickAuth } = await import("@coinbase/onchainkit/minikit");
-        // MiniKit is available - we're in Farcaster
-        console.log("MiniKit available");
-      } catch (err) {
-        // MiniKit not available - standalone mode
-        console.log("Running in standalone mode");
-      }
-    };
-    initMiniKit();
-  }, []);
 
   // Load shopping list from localStorage
   useEffect(() => {
@@ -119,12 +91,11 @@ export default function Home() {
       <div className={styles.content}>
         <div className={styles.shoppingList}>
           <h1 className={styles.title}>
-            {minikitConfig.miniapp.name.toUpperCase()}
+            CLAUDE'S SHOPPING LIST
           </h1>
 
           <p className={styles.subtitle}>
-            Hey {context?.user?.displayName || "Claude"}, what do you need to
-            buy today?
+            What do you need to buy today?
           </p>
 
           <form onSubmit={handleAddItem} className={styles.form}>
@@ -165,12 +136,6 @@ export default function Home() {
               ADD TO LIST
             </button>
           </form>
-
-          {authData?.success && (
-            <div className={styles.authBadge}>
-              Authenticated as FID: {authData.user?.fid}
-            </div>
-          )}
 
           <div className={styles.itemsContainer}>
             {activeItems.length > 0 && (
