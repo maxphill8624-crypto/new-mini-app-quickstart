@@ -1,22 +1,31 @@
 {
-  "name": "new-mini-app-quickstart",
-  "version": "0.1.0",
+  "name": "polymarket-prediction-bot",
+  "version": "1.0.0",
+  "description": "Advanced multi-strategy Polymarket prediction bot with AI integration",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "bot": "ts-node bot/index.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
     "@coinbase/onchainkit": "latest",
     "@farcaster/miniapp-sdk": "^0.1.8",
+    "@polymarket/clob-client": "^5.1.3",
     "@tanstack/react-query": "^5.81.5",
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.16.0",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "uuid": "^13.0.0",
     "viem": "^2.31.6",
-    "wagmi": "^2.16.3"
+    "wagmi": "^2.16.3",
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -25,8 +34,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
