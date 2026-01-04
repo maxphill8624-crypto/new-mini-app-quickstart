@@ -1,7 +1,9 @@
 import { BotConfig } from './types';
 import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config();
+// Load .env.local from project root
+dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
 
 export const config: BotConfig = {
   // API Configuration - Load from environment variables

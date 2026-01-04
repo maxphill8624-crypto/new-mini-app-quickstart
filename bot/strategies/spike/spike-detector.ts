@@ -4,7 +4,7 @@ import { PolymarketClient } from '../../core/api/polymarket-client';
 export class SpikeDetector {
   private priceHistory: Map<string, number[]> = new Map();
   private readonly HISTORY_SIZE = 10;
-  private readonly SPIKE_THRESHOLD = 5; // 5% price change
+  private SPIKE_THRESHOLD: number; // 5% price change
 
   constructor(
     private client: PolymarketClient,

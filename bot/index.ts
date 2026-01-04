@@ -70,20 +70,26 @@ export class PolymarketBot {
       await this.client.initialize();
       this.logger.info('Polymarket client initialized');
 
-      // Connect WebSocket
-      await this.wsMonitor.connect();
-      this.logger.info('WebSocket monitor connected');
+      // Try to connect WebSocket (optional - bot can run without it)
+      try {
+        await this.wsMonitor.connect();
+        this.logger.info('WebSocket monitor connected');
 
-      // Set up WebSocket price updates
-      this.wsMonitor.onPriceUpdate((tokenId, price, volume) => {
-        this.handlePriceUpdate(tokenId, price, volume);
-      });
+        // Set up WebSocket price updates
+        this.wsMonitor.onPriceUpdate((tokenId, price, volume) => {
+          this.handlePriceUpdate(tokenId, price, volume);
+        });
+      } catch (wsError) {
+        this.logger.warn('WebSocket connection failed, running in polling mode');
+      }
 
       // Load initial markets
       await this.loadMarkets();
 
-      // Subscribe to market updates
-      this.wsMonitor.subscribeToMarkets(this.markets);
+      // Subscribe to market updates if WebSocket is connected
+      if (this.wsMonitor.isConnected()) {
+        this.wsMonitor.subscribeToMarkets(this.markets);
+      }
 
       // Start main loop
       this.running = true;

@@ -1,7 +1,7 @@
 import { Market, ArbitrageOpportunity } from '../../types';
 
 export class ArbitrageDetector {
-  private readonly MIN_PROFIT_PERCENTAGE = 2; // Minimum 2% profit to consider
+  private MIN_PROFIT_PERCENTAGE: number; // Minimum 2% profit to consider
 
   constructor(private minProfitPercentage: number = 2) {
     this.MIN_PROFIT_PERCENTAGE = minProfitPercentage;

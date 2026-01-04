@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "bot": "ts-node bot/index.ts",
+    "bot": "ts-node --project bot/tsconfig.json bot/index.ts",
     "create-wallet": "ts-node scripts/create-wallet.ts"
   },
   "dependencies": {
