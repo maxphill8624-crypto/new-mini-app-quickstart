@@ -1,0 +1,16 @@
+[Unit]
+Description=Polymarket Insider Trading Monitor
+After=network.target
+
+[Service]
+Type=simple
+User=yourusername
+WorkingDirectory=/path/to/polymarket_monitor
+ExecStart=/path/to/polymarket_monitor/venv/bin/python main.py --mode continuous --interval 3600
+Restart=on-failure
+RestartSec=60
+StandardOutput=append:/path/to/polymarket_monitor/systemd.log
+StandardError=append:/path/to/polymarket_monitor/systemd_error.log
+
+[Install]
+WantedBy=multi-user.target
