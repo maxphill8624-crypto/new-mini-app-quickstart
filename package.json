@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "bot": "ts-node bot/index.ts"
+    "bot": "ts-node bot/index.ts",
+    "create-wallet": "ts-node scripts/create-wallet.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
